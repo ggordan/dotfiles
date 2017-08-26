@@ -31,3 +31,16 @@
         #
         # Setting to git 2.0 default to suppress warning message
         default = simple
+[filter "strongbox"]
+	clean = strongbox clean %f
+	smudge = strongbox smudge %f
+	required = true
+[diff "strongbox"]
+	textconv = strongbox diff
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[credential]
+	helper = osxkeychain

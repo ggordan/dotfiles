@@ -54,6 +54,15 @@ directory_name() {
   echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
 }
 
+get_kube_ctx() {
+  CONTEXT=$(kubectl config current-context)
+  if [[ "$CONTEXT" =~ ^dev-* ]]; then
+      echo "{%{$fg_bold[green]%}$number$CONTEXT%{$reset_color%}}"
+  else
+      echo "{%{$fg_bold[red]%}$number$CONTEXT%{$reset_color%}}"
+  fi
+}
+
 battery_status() {
   if [[ $(sysctl -n hw.model) == *"Book"* ]]
   then
@@ -61,8 +70,7 @@ battery_status() {
   fi
 }
 
-export PROMPT=$'\n$(battery_status)in $(directory_name) $(git_dirty)$(need_push)\n› '
-
+export PROMPT=$'\n $(get_kube_ctx) | $(directory_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
@@ -71,3 +79,6 @@ precmd() {
   title "zsh" "%m" "%55<...<%~"
   set_prompt
 }
+
+
+export PROMPT_COMMAND="echo -n [$(date +%H%M)]"
