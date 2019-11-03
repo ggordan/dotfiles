@@ -8,13 +8,15 @@ endif
 
 call plug#begin('~/.dotfiles/vim/plugins')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " set the color schema
@@ -35,3 +37,5 @@ set encoding=utf-8
 set ruler
 set hidden
 set laststatus=2
+
+nnoremap f :FZF<CR>
