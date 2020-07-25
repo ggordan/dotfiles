@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=2018.3.5
-Name=IntelliJ IDEA Ultimate
-GenericName=IntelliJ IDEA Ultimate
-Type=Application
-Exec=/home/ggordan/apps/intellij/bin/idea.sh
-TryExec=/home/ggordan/apps/intellij/bin/idea.sh
-StartupWMClass=jetbrains-idea
