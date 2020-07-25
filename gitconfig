@@ -1,0 +1,22 @@
+[user]
+	name = Gordan Grasarevic
+	email = me@ggordan.com
+	signingkey = 09C3AAA3EA8B19D4
+[credential]
+	helper = store
+[filter "strongbox"]
+	clean = strongbox -clean %f
+	smudge = strongbox -smudge %f
+	required = true
+[diff "strongbox"]
+	textconv = strongbox -diff
+[core]
+	excludesfile = /home/ggordan/.gitignore
+[commit]
+	gpgsign = true
+[gpg]
+	program = /bin/gpg2
+[tag]
+	forceSignAnnotated = true
+[pull]
+	rebase = false
