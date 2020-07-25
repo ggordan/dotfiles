@@ -1,0 +1,6 @@
+[submodule "config/zsh/dracula"]
+	path = config/zsh/dracula
+	url = https://github.com/dracula/zsh
+[submodule "config/zsh/oh-my-zsh"]
+	path = config/zsh/oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh
