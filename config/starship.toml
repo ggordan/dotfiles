@@ -1,0 +1,36 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+prompt_order = [
+    "username",
+    "hostname",
+    "directory",
+    "kubernetes",
+    "git_branch",
+    "git_state",
+    "git_status",
+    "package",
+    "rust",
+    "ruby",
+    "python",
+    "golang",
+    "nodejs",
+    "nix_shell",
+    "cmd_duration",
+    "line_break",
+    "jobs",
+    "time",
+    "battery",
+    "character",
+]
+
+[kubernetes]
+disabled = false
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]      # The name of the module we are confguring is "character"
+symbol = "❯"     # The "symbol" segment is being set to "➜"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
