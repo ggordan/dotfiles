@@ -6,11 +6,8 @@ fi
 # Load TMUX on start of a shell
 [[ -z "$TMUX" ]] && exec tmux
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="~/.config/zsh/oh-my-zsh"
+# Path to your oh-my-zsh installation (needs to be an absolute path)
+export ZSH="/home/ggordan/.config/zsh/oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -95,20 +92,23 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# System directory
+export SYSTEM=$HOME/system
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Go
+export GOPATH="$SYSTEM/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOBIN:$PATH"
+
 # User configuration
 
 export TERM=xterm-256color
 
-export PATH=~/.bin:$PATH
-export PATH=~/.kube/plugins:$PATH
-fpath+=~/.config/completions/
-export GOPATH=$HOME/library/go
-export GOBIN=$GOPATH/bin
-export PATH=$GOBIN:$PATH
-export PATH=$NODE_PATH:$PATH
-
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
@@ -126,8 +126,9 @@ alias k='kubectl'
 alias kgp='k get pods'
 alias ghpr='gh pr create'
 alias ls='exa'
+
 # Lock the computer
-alias lock='i3lock -i ~/.dotfiles/assets/wallpaper.png -e -f'
+alias lock='i3lock -i ~/.config/desktop/wallpaper.png -e -f'
 
 alias kccn='kubectl config set-context $(kubectl config current-context) --namespace'
 alias uw-aws-dev='export AWS_PROFILE=dev-energy-admin'

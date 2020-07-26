@@ -6,7 +6,7 @@ endif
 
 " Setup plugins
 
-call plug#begin('~/.dotfiles/vim/plugins')
+call plug#begin('~/.config/vim/plugins')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }

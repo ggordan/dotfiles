@@ -143,5 +143,5 @@ focus_follows_mouse no
 for_window [class=".*"] border pixel 5
 
 exec --no-startup-id compton --config ~/.config/compton/config.conf
-exec --no-startup-id feh --bg-fill ~/.dotfiles/assets/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/.config/desktop/wallpaper.jpg
 exec --no-startup-id ~/.config/polybar/launch.sh &
