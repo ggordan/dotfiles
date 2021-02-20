@@ -1,7 +1,7 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 
-prompt_order = [
+format = [
     "username",
     "hostname",
     "directory",
@@ -24,7 +24,11 @@ prompt_order = [
     "character",
 ]
 
+[time]
+disabled = false
+
 [kubernetes]
+format = '[⛵ $context \($namespace\)](green) '
 disabled = false
 
 # Replace the "❯" symbol in the prompt with "➜"
