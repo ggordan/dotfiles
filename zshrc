@@ -1,13 +1,17 @@
-# autologin n tty1
-if [ -z "$DISPLAY" ] && [ "$(fgconsole)" -eq 1 ]; then
-  exec startx
+export TERM=xterm-256color
+export LANG=en_US.UTF-8
+export EDITOR='vim'
+
+# Ensure that we are always opening a new session in tmux
+if command -v tmux>/dev/null; then
+   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
-# Load TMUX on start of a shell
-[[ -z "$TMUX" ]] && exec tmux
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-# Path to your oh-my-zsh installation (needs to be an absolute path)
-export ZSH="/home/ggordan/.config/zsh/oh-my-zsh"
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/Code
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -17,7 +21,7 @@ ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -28,17 +32,16 @@ ZSH_THEME="robbyrussell"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -50,6 +53,9 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -69,8 +75,8 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
@@ -84,7 +90,6 @@ plugins=(
     node
     npm
     docker-compose
-    cargo
     rust
     kubectl
     golang
@@ -92,26 +97,22 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# System directory
-export SYSTEM=$HOME/system
-
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# Go
-export GOPATH="$SYSTEM/go"
-export GOBIN="$GOPATH/bin"
-export PATH="$GOBIN:$PATH"
-
 # User configuration
 
-export TERM=xterm-256color
+# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -122,25 +123,45 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias k='kubectl'
-alias kgp='k get pods'
-alias ghpr='gh pr create'
-alias ls='exa'
+# # all of our zsh files
+# typeset -U config_files
+# config_files=($ZSH/**/*.zsh)
 
-# Lock the computer
-alias lock='i3lock -i ~/.config/desktop/wallpaper.png -e -f'
+# # load the path files
+# for file in ${(M)config_files:#*/path.zsh}
+# do
+#   source $file
+# done
 
-alias kccn='kubectl config set-context $(kubectl config current-context) --namespace'
-alias uw-aws-dev='export AWS_PROFILE=dev-energy-admin'
-alias uw-aws-prod='export AWS_PROFILE=prod-energy-admin'
-alias code=code-oss
+# # load everything but the path and completion files
+# for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+# do
+#   source $file
+# done
 
-alias kustomize-resources='tree -iFf | sed -e "s/^\.\//- /" | egrep "^.*\.(yaml|yml)$"'
+# # initialize autocomplete here, otherwise functions won't be loaded
+# autoload -U compinit
+# compinit
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# # load every completion after autocomplete loads
+# for file in ${(M)config_files:#*/completion.zsh}
+# do
+#   source $file
+# done
+
+# unset config_files
+
+# # Better history
+# # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
+# autoload -U up-line-or-beginning-search
+# autoload -U down-line-or-beginning-search
+# zle -N up-line-or-beginning-search
+# zle -N down-line-or-beginning-search
+# bindkey "^[[A" up-line-or-beginning-search # Up
+# bindkey "^[[B" down-line-or-beginning-search # Down
+
+# export GOPATH=~/Go
+# export GOBIN=$GOPATH/bin
+# export PATH=$GOBIN:$PATH
 
 eval "$(starship init zsh)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
