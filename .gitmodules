@@ -1,6 +1,0 @@
-[submodule "submodules/dracula"]
-	path = submodules/dracula
-	url = https://github.com/dracula/zsh
-[submodule "submodules/oh-my-zsh"]
-	path = submodules/oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh
