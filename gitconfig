@@ -1,7 +1,7 @@
 [user]
 	name = Gordan Grasarevic
 	email = me@ggordan.com
-	signingkey = 09C3AAA3EA8B19D4
+	signingkey = B9AB9F9079DC6583E35043E3A28373823B731BA7
 [credential]
 	helper = store
 [filter "strongbox"]
