@@ -8,7 +8,7 @@ if command -v tmux>/dev/null; then
 fi
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/Code/dotfiles/deps/oh-my-zsh
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
