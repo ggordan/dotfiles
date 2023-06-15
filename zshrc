@@ -1,17 +1,22 @@
 export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export EDITOR='vim'
+export SYSTEM_HOME=$HOME/System
+export DOTFILES_HOME=$HOME/Code/dotfiles
+export PROJECTS=~/Code
 
 # Ensure that we are always opening a new session in tmux
 if command -v tmux>/dev/null; then
    [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
 fi
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/Code/dotfiles/deps/oh-my-zsh
+# Apply all the custom zsh files
+for file in $DOTFILES_HOME/zsh/*.zsh; do
+    source $file
+done
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
+# Path to your oh-my-zsh installation.
+export ZSH=$DOTFILES_HOME/deps/oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
