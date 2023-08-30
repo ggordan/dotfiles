@@ -89,11 +89,14 @@ plugins=(
     aws
     docker
     copyfile
+    gh
+    github
     vscode
     kubectl
     doctl
     node
     npm
+    gcloud
     docker-compose
     rust
     kubectl
