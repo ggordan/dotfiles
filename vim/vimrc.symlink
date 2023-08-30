@@ -38,4 +38,7 @@ set ruler
 set hidden
 set laststatus=2
 
-nnoremap f :FZF<CR>
+" Key bindings
+
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap f :Files<CR>
